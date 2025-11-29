@@ -7,17 +7,17 @@
 </head>
 <body>
     <h2>Welcome to login Page</h2>
-    <input id="email" type="email" placeholder="Enter your email id">
+    <input id="email" type="email" placeholder="Enter your email id" required>
     <br><br>
-    <input id="password" type="password" placeholder="Enter your password">
+    <input id="password" type="password" placeholder="Enter your password" required>
     <br><br>
-    <button oneclick="login()">Login</button>
+    <button onclick="login()">Login</button>
     
     <script>
         function login(){
             let email=document.getElementById("email").value;
             let password=document.getElementById("password").value;
-            if(email==="admin@gmail.com" && password="admin1234"){
+            if(email==="admin@gmail.com" && password==="admin1234"){
                 alert("Login Success");
                 window.location.href="admin.html";
             }
