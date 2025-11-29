@@ -112,6 +112,14 @@
                 reg,cat,driver,avail,
                 img:"https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png"            
             };
+            const card=document.createElement("div");
+            card.className="fleet-card";
+            card.innerHTML=`<img src="https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png">
+                            <p>REG No:${reg}</p>
+                            <p>Category:${cat}</p>
+                            <p>driver:${driver}</p>
+                            <p>Status:${avail}</p>`;
+            data.push(vehicle);
             fleetlist.appendChild(card);
             form.reset();
         }
@@ -119,7 +127,6 @@
             let name=prompt("Enter new driver name:");
             if(name){
                 data[i].driver=name;
-                render(data);
             }
         }
         function changeAvail(i){
@@ -139,13 +146,11 @@
                 let a=(availVal==="All" || v.avail===availVal);
                 return c && a;
             });
-            render(filtered);
         }
 
         function clearFilters(){
             document.getElementById("categoryFilter").value="All";
             document.getElementById("availabilityFilter").value="All";
-            render(data);
         }
     </script>
 
