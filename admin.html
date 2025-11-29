@@ -22,6 +22,26 @@
             display:flex;
             gap:15px;
         }
+        #sidebar{
+            width:300px;
+            padding:10px;
+
+        }
+        #mainArea{
+            flex:1;
+            padding:20px;
+        }
+        .fleetcard img{
+            width:50%;
+            height:100px;
+            object-fit: cover;
+        }
+        .card-list{
+            display:flex;
+            flex-wrap: wrap;
+            gap:10px;
+
+        }
     </style>
 </head>
 <body>
@@ -47,33 +67,42 @@
 
     </nav>
     <hr>
-    <aside style="width:250px; padding:10px; border:1px solid black">
-        <h3>Add Vehicle</h3>
-        <form>
-            <label>Reg No:</label>
-            <input id="reg" type="text" placeholder="Reg No"><br>
-            <label>Category:</label>
-            <select id="category">
-                <option>Auto</option>
-                <option>Bus</option>
-                <option>Car</option>
-                <option>Truck</option>
-            </select><br>
-            <label>Driver Name</label>
-            <input id="driver" type="text" placeholder="Driver's Name"><br>
-            <label>Availability</label>
-            <select id="avail">
-                <option>Available</option>
-                <option>Unavailable</option>
-            </select><br>
-            <button onclick="addVehicle()">Add Fleet</button>
-        </form>
+    <div id="container">
+        <aside  id="sidebar">
+            <h3>Add Vehicle</h3>
+            <form id="fleetform">
+                <label>Reg No:</label>
+                <input id="reg" type="text" placeholder="Reg No"><br><br>
+                <label>Category:</label>
+                <select id="category">
+                    <option>Auto</option>
+                    <option>Bus</option>
+                    <option>Car</option>
+                    <option>Truck</option>
+                </select><br><br>
+                <label>Driver Name</label>
+                <input id="driver" type="text" placeholder="Driver's Name"><br><br>
+                <label>Availability</label>
+                <select id="avail">
+                    <option>Available</option>
+                    <option>Unavailable</option>
+                </select><br><br>
+                <center><button onclick="addVehicle()">Add Fleet</button></center>
+            </form>
+        </aside>
+    </div>
+    <div id="mainArea">
+        <div class="card-list" id="fleetlist"></div>
+    </div>
 
-    <div id="main"></div>
-</aside>
     <script>
         let data=[];
         function addVehicle(){
+            const form=document.getElementById("fleetform");
+            const main=document.getElementById("fleetList");
+            form.addEventListener("submit",function(e){
+                e.preventDefault();
+            });
             let reg=document.getElementById("reg").value;
             let cat=document.getElementById("category").value;
             let driver=document.getElementById("driver").value;
@@ -83,27 +112,9 @@
                 reg,cat,driver,avail,
                 img:"https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png"            
             };
-            data.push(vehicle);
-            render(data);
+            fleetlist.appendChild(card);
+            form.reset();
         }
-
-        function render(arr){
-            let main=document.getElementById("main");
-            arr.forEach((v,i) =>{
-                let card=document.getElementById("div");
-                card.className="card";
-                card.innerHTML=`<img src="$(v.img)">
-                                <p>Regi No : $(v.reg)</p>
-                                <p>Category : $(v.cat)</p>
-                                <p>Driver : $(v.driver)</p>
-                                <p>Status : $(v.avail)</p>
-                <button onclick="updateDriver(${i})">Update Driver</button>
-                <button onclick="changeAvail(${i})">Change Availability</button>
-                <button onclick="deleteVehicle(${i})">Delete Vehicle</button>`;
-                main.appendChild(card);
-            });
-        }
-
         function updateDriver(i){
             let name=prompt("Enter new driver name:");
             if(name){
